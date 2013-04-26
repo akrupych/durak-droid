@@ -5,10 +5,24 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 
-public class FadeoutAnimation {
+public class Screen {
 
-	public static void startOn(final View view) {
-		view.postDelayed(new Runnable() {
+	protected View mView;
+	
+	public Screen(View view) {
+		mView = view;
+	}
+
+	public void show() {
+		mView.setVisibility(View.VISIBLE);
+	}
+
+	public boolean isVisible() {
+		return mView.getVisibility() == View.VISIBLE;
+	}
+
+	public void hide() {
+		mView.postDelayed(new Runnable() {
 			@Override
 			public void run() {
     			Animation fadeout = new AlphaAnimation(1, 0);
@@ -20,10 +34,10 @@ public class FadeoutAnimation {
 					public void onAnimationRepeat(Animation animation) { }
 					@Override
 					public void onAnimationEnd(Animation animation) {
-						view.setVisibility(View.GONE);
+						mView.setVisibility(View.GONE);
 					}
 				});
-				view.startAnimation(fadeout);
+				mView.startAnimation(fadeout);
 			}
 		}, 500);
 	}
