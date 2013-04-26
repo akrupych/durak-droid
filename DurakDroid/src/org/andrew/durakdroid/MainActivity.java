@@ -2,6 +2,7 @@ package org.andrew.durakdroid;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -58,6 +60,15 @@ public class MainActivity extends Activity {
         	public void onReceivedError(WebView view, int errorCode,
         			String description, String failingUrl) {
         		Log.e(TAG, "onReceivedError: " + description);
+        	}
+        	@Override
+        	public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        		Log.e(TAG, "shouldOverrideUrlLoading: " + url);
+        		if (!Uri.parse(url).getHost().equals("durak.time2play.mobi")) {
+        			Toast.makeText(MainActivity.this, "You can't go there", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+        		return false;
         	}
         });
     }
