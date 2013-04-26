@@ -5,12 +5,17 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
 
     protected static final String TAG = MainActivity.class.getName();
+    
+    private boolean mIsLoaded = false;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,27 @@ public class MainActivity extends Activity {
         	@Override
         	public void onPageFinished(WebView view, String url) {
         		Log.d(TAG, "onPageFinished: " + url);
-        		splashScreen.setVisibility(View.GONE);
+        		if (!mIsLoaded) {
+            		splashScreen.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+		        			Animation fadeout = new AlphaAnimation(1, 0);
+		        			fadeout.setDuration(1000);
+		        			fadeout.setAnimationListener(new AnimationListener() {
+								@Override
+								public void onAnimationStart(Animation animation) { }
+								@Override
+								public void onAnimationRepeat(Animation animation) { }
+								@Override
+								public void onAnimationEnd(Animation animation) {
+									splashScreen.setVisibility(View.GONE);
+								}
+							});
+							splashScreen.startAnimation(fadeout);
+						}
+					}, 1000);
+        			mIsLoaded = true;
+        		}
         	}
         	@Override
         	public void onReceivedError(WebView view, int errorCode,
