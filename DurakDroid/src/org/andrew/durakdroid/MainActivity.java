@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -24,7 +25,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final View splashScreen = findViewById(R.id.splash_screen);
-        WebView webView = (WebView) findViewById(R.id.web_view);
+        final View errorScreen = findViewById(R.id.error_screen);
+        final WebView webView = (WebView) findViewById(R.id.web_view);
         webView.loadUrl("http://durak.time2play.mobi/landing");
         webView.setWebViewClient(new WebViewClient() {
         	@Override
@@ -60,6 +62,8 @@ public class MainActivity extends Activity {
         	public void onReceivedError(WebView view, int errorCode,
         			String description, String failingUrl) {
         		Log.e(TAG, "onReceivedError: " + description);
+        		errorScreen.setVisibility(View.VISIBLE);
+        		errorScreen.setTag(failingUrl);
         	}
         	@Override
         	public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -71,6 +75,14 @@ public class MainActivity extends Activity {
         		return false;
         	}
         });
+        Button checkConnection = (Button) findViewById(R.id.button_check_connection);
+        checkConnection.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				errorScreen.setVisibility(View.GONE);
+				webView.loadUrl(errorScreen.getTag().toString());
+			}
+		});
     }
     
 }
