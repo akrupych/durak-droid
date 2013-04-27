@@ -11,23 +11,35 @@
         android:id="@+id/splash_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black" >
+        android:background="@android:color/black"
+        android:visibility="gone" >
 
         <ImageView
+            android:id="@+id/splash_screen_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/kernel_panic" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/splash_screen_image"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/error_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@android:color/black" >
+        android:background="@android:color/black"
+        android:visibility="gone" >
 
         <LinearLayout
+            android:id="@+id/error_screen_controls"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -53,6 +65,15 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/check_now" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/error_screen_controls"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>

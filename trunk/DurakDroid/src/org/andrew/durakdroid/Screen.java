@@ -5,12 +5,14 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 
-public class Screen {
+public abstract class Screen {
 
 	protected View mView;
+	protected View mProgressBar;
 	
-	public Screen(View view) {
+	public Screen(View view, View progressBar) {
 		mView = view;
+		mProgressBar = progressBar;
 	}
 
 	public void show() {
@@ -40,6 +42,12 @@ public class Screen {
 				mView.startAnimation(fadeout);
 			}
 		}, 500);
+	}
+
+	public void setLoading(boolean state) {
+		if (mProgressBar != null) {
+			mProgressBar.setVisibility(state ? View.VISIBLE : View.GONE);
+		}
 	}
 
 }

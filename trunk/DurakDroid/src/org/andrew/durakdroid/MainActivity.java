@@ -26,11 +26,13 @@ public class MainActivity extends Activity {
 		@Override
 		public void onPageStarted(WebView view, String url, Bitmap favicon) {
 			Log.d(TAG, "onPageStarted: " + url);
+			mCurrentScreen.setLoading(true);
 		}
 
 		@Override
 		public void onPageFinished(WebView view, String url) {
 			Log.d(TAG, "onPageFinished: " + url);
+			mCurrentScreen.setLoading(false);
 			if (!isNetworkAvailable()) {
 				switchTo(mErrorScreen);
 			} else {
