@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onPageFinished(WebView view, String url) {
 			Log.d(TAG, "onPageFinished: " + url);
+			mGameScreen.removeBanner();
 			mCurrentScreen.setLoading(false);
 			if (!isNetworkAvailable()) {
 				switchTo(mErrorScreen);
@@ -43,7 +44,7 @@ public class MainActivity extends Activity {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			Log.d(TAG, "shouldOverrideUrlLoading: " + url);
-			if (!Uri.parse(url).getHost().equals("durak.time2play.mobi")) {
+			if (!Uri.parse(url).getHost().contains("time2play.mobi")) {
 				Toast.makeText(MainActivity.this, "You can't go there",
 						Toast.LENGTH_SHORT).show();
 				return true;
