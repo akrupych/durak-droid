@@ -69,6 +69,13 @@ public class MainActivity extends Activity {
 					}
 				});
 	}
+	
+	@Override
+	public void onBackPressed() {
+		if (!mGameScreen.goBack()) {
+			super.onBackPressed();
+		}
+	}
 
 	private void switchTo(Screen screen) {
 		if (mCurrentScreen != screen) {
