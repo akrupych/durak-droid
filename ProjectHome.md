@@ -1,0 +1,1 @@
+Android holder for Durak game
